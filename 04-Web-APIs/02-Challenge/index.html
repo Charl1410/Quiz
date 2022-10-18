@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" href = "style.css">
-    <script src = "script.js" ></script>
+    
     <title>JavaScript Quiz</title>
 </head>
 
@@ -13,13 +13,16 @@
 
     <header>
         <div id = highscores>
+            <!--This is where we will store the highscores to the local store -->
             <a href = ""> High scores</a>
+            <div id = "timer"> 0</div>
 
         </div>
+
     </header>
 
 <main>
-    <div id ="welcome">
+    <div id ="welcome" class = "hidden">
         <h1>Welcome to the JavaScript code quiz</h1>
         <button id = "startQuiz" class = "button">Start Quiz</button>
     
@@ -63,3 +66,6 @@
 
 </body>
 </html>
+
+<script src = "script.js" ></script>
+    <script src = "Assets/js/questions.js"></script> 
