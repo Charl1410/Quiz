@@ -56,19 +56,27 @@ var welcome = document.getElementById("welcome");
 
 var timer = document.getElementById("timer");
 
+//Setting variables to 0 for start 
 var secondsLeft = 0;
-//going to be between 0 and 4 if you have 4 questions
 var score = 0;
-//TODO current question is important: when you answer it you need to incriment that and go and retrieve the next question from the file
 var currentQuestionIndex = 0;
 var countDownTimer;
 
+
+
+
+
+//clear coundown timer to stop game
 function stopGame() {
   clearInterval(countDownTimer);
 }
 
+
+
+
+
+//Function to begin the game 
 function startGame() {
-  //set variables to 0 because game has started timer is set to 60 seconds
 
   secondsLeft = 60;
   currentQuestion = 0;
@@ -96,47 +104,51 @@ function viewHighScore() {
   welcome.style.display = "none";
   quiz.style.display = "none";
 }
+
+
+
+
+
 //display question function
 
 function displayQuestion() {
   //increiment the next question
   currentQuestion++;
-  //have we run out of questions?
 
+  //have we run out of questions?
   if (currentQuestionIndex >= questions.length) {
     stopGame();
     return;
   }
-  //load question from the question array
 
+  //load question from the question array
   var question = questions[currentQuestionIndex];
   document.getElementById("question").textContent = question.title;
 
   //clear any existing options from prev question
+    option.innerHTML = "";
 
-  option.innerHTML = "";
 
-  //load through the choices and output the new possible options by creating a div that contains the text/question
-  //For loop that for each question creates a div containing
-  // could create the elements as buttons
-
-  // for (i = 0; i < questions.length; i++) {
-  //   console.log("hello", i )
-  // }
-
-  //adding the button to HTML 
+  
+  //adding the button to HTML
   createButton(question.choices[0]);
   createButton(question.choices[1]);
   createButton(question.choices[2]);
   createButton(question.choices[3]);
 
-  var questionDiv = document.createElement("div");
-  questionDiv.textContent = currentQuestionIndex;
-  //TODO I am stuck here
 
-  //append those into the display (create div append )
+  // for (i = 0; i < questions.length; i++) {
+  //   console.log("hello", i )
+  // }
+
+
+  //var questionDiv = document.createElement("div");
+  //questionDiv.textContent = currentQuestionIndex;
 }
 
+
+
+//Creates button for answer selection 
 function selectAnswer() {}
 
 function createButton(text) {
@@ -146,6 +158,8 @@ function createButton(text) {
   button.addEventListener("click", handleAnswerClick);
 }
 
+
+//
 function handleAnswerClick(event) {
   var button = event.target;
 
@@ -161,15 +175,24 @@ function handleAnswerClick(event) {
   // }
   var currentAnswer = currentQuestion.answer;
 
-  console.log(correctAnswer);
+  //console.log(correctAnswer);
 
   //compare  selectred response to correct answer
+  //TODO this doesnt work but i know the if statment does as it console.logs to console
   if (currentAnswer === selectedAnswer) {
-    
     score++;
 
+    //if correct
+    // - dispaly "correct"
+    // - add point to score
     displayMessage("Correct!");
+
+    score++;
+
   } else {
+    // - display "wrong"
+    //- deduct 10s from timer
+    
     displayMessage("Wrong :(");
 
     timer - 10;
@@ -177,17 +200,7 @@ function handleAnswerClick(event) {
     //make the message go away after 1s
   }
 
-  //if correct
-  // - dispaly "correct"
-  // - add point to score
-
-  //else
-  // - display "wrong"
-  //- deduct 10s from timer
-
   //move onto next question
-
-  
 }
 
 function displayMessage(message) {
