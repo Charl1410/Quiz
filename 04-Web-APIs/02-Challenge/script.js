@@ -34,15 +34,6 @@ var questions = [
   },
 ];
 
-var a = questions[0];
-// Is similar to
-var a = {
-  title: "Commonly used data types DO NOT include:",
-  choices: ["strings", "booleans", "alerts", "numbers"],
-  answer: "alerts",
-};
-a.answer;
-
 var highscores = document.getElementById("highscores");
 
 var startQuiz = document.getElementById("startQuiz");
@@ -56,28 +47,19 @@ var welcome = document.getElementById("welcome");
 
 var timer = document.getElementById("timer");
 
-//Setting variables to 0 for start 
+//Setting variables to 0 for start
 var secondsLeft = 0;
 var score = 0;
 var currentQuestionIndex = 0;
 var countDownTimer;
-
-
-
-
 
 //clear coundown timer to stop game
 function stopGame() {
   clearInterval(countDownTimer);
 }
 
-
-
-
-
-//Function to begin the game 
+//Function to begin the game
 function startGame() {
-
   secondsLeft = 60;
   currentQuestion = 0;
   score = 0;
@@ -105,10 +87,6 @@ function viewHighScore() {
   quiz.style.display = "none";
 }
 
-
-
-
-
 //display question function
 
 function displayQuestion() {
@@ -126,38 +104,32 @@ function displayQuestion() {
   document.getElementById("question").textContent = question.title;
 
   //clear any existing options from prev question
-    option.innerHTML = "";
+  option.innerHTML = "";
 
-
-  
   //adding the button to HTML
   createButton(question.choices[0]);
   createButton(question.choices[1]);
   createButton(question.choices[2]);
   createButton(question.choices[3]);
 
-
-  // for (i = 0; i < questions.length; i++) {
   //   console.log("hello", i )
   // }
-
 
   //var questionDiv = document.createElement("div");
   //questionDiv.textContent = currentQuestionIndex;
 }
 
-
-
-//Creates button for answer selection 
+//Creates button for answer selection
 function selectAnswer() {}
 
-function createButton(text) {
-  var button = document.createElement("button");
-  button.textContent = text;
-  option.appendChild(button);
-  button.addEventListener("click", handleAnswerClick);
-}
-
+//for (i = 0; i < questions.length; i++) {
+  function createButton(text) {
+    var button = document.createElement("button");
+    button.textContent = text;
+    option.appendChild(button);
+    button.addEventListener("click", handleAnswerClick);
+  }
+//}
 
 //
 function handleAnswerClick(event) {
@@ -178,33 +150,52 @@ function handleAnswerClick(event) {
   //console.log(correctAnswer);
 
   //compare  selectred response to correct answer
-  //TODO this doesnt work but i know the if statment does as it console.logs to console
   if (currentAnswer === selectedAnswer) {
-    score++;
-
-    //if correct
     // - dispaly "correct"
-    // - add point to score
     displayMessage("Correct!");
 
-    score++;
+    //add point to score
+    score+=10;
+
+    console.log(score);
+
+    setTimeout( function (){
+      message.textContent = " ";
+    }, 1000);
 
   } else {
+
     // - display "wrong"
-    //- deduct 10s from timer
-    
     displayMessage("Wrong :(");
 
-    timer - 10;
+    //- deduct 10s from timer
+    //TODO this isnt working
+    //timer -= 10;
 
     //make the message go away after 1s
+    setTimeout( function (){
+      message.textContent = " ";
+    }, 1000);
   }
 
-  //move onto next question
+  //clear options for set question 
+  option.innerHTML = "";
+
+  // loading in next answers
+   
+  createButton(questions[2].choices[0]);
+  createButton(questions[2].choices[1]);
+  createButton(questions[2].choices[2]);
+  createButton(questions[2].choices[3]);
+
+
+  
+
+  
 }
 
-function displayMessage(message) {
-  message.textContent = message;
+function displayMessage(responseMessage) {
+  message.textContent = responseMessage;
 }
 
 startQuiz.addEventListener("click", startGame);
