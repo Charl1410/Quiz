@@ -37,6 +37,7 @@ var questions = [
 var highscores = document.getElementById("highscores");
 
 var startQuiz = document.getElementById("startQuiz");
+var currentScore = document.getElementById("currentScore");
 var question = document.getElementById("question");
 var option = document.getElementById("option");
 var message = document.getElementById("message");
@@ -49,13 +50,16 @@ var timer = document.getElementById("timer");
 
 //Setting variables to 0 for start
 var secondsLeft = 0;
-var score = 0;
+var currentScore = 0;
 var currentQuestionIndex = 0;
 var countDownTimer;
 
 //clear coundown timer to stop game
 function stopGame() {
   clearInterval(countDownTimer);
+
+  quiz.style.display = "none";
+  welcome.style.display = "none";
 }
 
 //Function to begin the game
@@ -91,7 +95,8 @@ function viewHighScore() {
 
 function displayQuestion() {
   //increiment the next question
-  currentQuestion++;
+  currentQuestionIndex++;
+
 
   //have we run out of questions?
   if (currentQuestionIndex >= questions.length) {
@@ -99,37 +104,31 @@ function displayQuestion() {
     return;
   }
 
+
+
   //load question from the question array
   var question = questions[currentQuestionIndex];
   document.getElementById("question").textContent = question.title;
 
   //clear any existing options from prev question
+
   option.innerHTML = "";
 
-  //adding the button to HTML
-  createButton(question.choices[0]);
-  createButton(question.choices[1]);
-  createButton(question.choices[2]);
-  createButton(question.choices[3]);
+  //adding the button to 
+for (i = 0; i < question.choices.length; i++ ) {
 
-  //   console.log("hello", i )
-  // }
-
-  //var questionDiv = document.createElement("div");
-  //questionDiv.textContent = currentQuestionIndex;
+  createButton(question.choices[i]);
+  
 }
 
-//Creates button for answer selection
-function selectAnswer() {}
+}
 
-//for (i = 0; i < questions.length; i++) {
-  function createButton(text) {
-    var button = document.createElement("button");
-    button.textContent = text;
-    option.appendChild(button);
-    button.addEventListener("click", handleAnswerClick);
-  }
-//}
+function createButton(text) {
+  var button = document.createElement("button");
+  button.textContent = text;
+  option.appendChild(button);
+  button.addEventListener("click", handleAnswerClick);
+}
 
 //
 function handleAnswerClick(event) {
@@ -140,11 +139,7 @@ function handleAnswerClick(event) {
 
   //what was the correct answer
   var currentQuestion = questions[currentQuestionIndex];
-  // currentQuestion = {
-  //  title: "Commonly used data types DO NOT include:",
-  //  choices: ["strings", "booleans", "alerts", "numbers"],
-  //  answer: "alerts",
-  // }
+
   var currentAnswer = currentQuestion.answer;
 
   //console.log(correctAnswer);
@@ -155,16 +150,14 @@ function handleAnswerClick(event) {
     displayMessage("Correct!");
 
     //add point to score
-    score+=10;
+    currentScore += 10;
 
-    console.log(score);
+    console.log(currentScore);
 
-    setTimeout( function (){
+    setTimeout(function () {
       message.textContent = " ";
     }, 1000);
-
   } else {
-
     // - display "wrong"
     displayMessage("Wrong :(");
 
@@ -173,25 +166,16 @@ function handleAnswerClick(event) {
     //timer -= 10;
 
     //make the message go away after 1s
-    setTimeout( function (){
+    setTimeout(function () {
       message.textContent = " ";
     }, 1000);
   }
 
-  //clear options for set question 
-  option.innerHTML = "";
-
-  // loading in next answers
-   
-  createButton(questions[2].choices[0]);
-  createButton(questions[2].choices[1]);
-  createButton(questions[2].choices[2]);
-  createButton(questions[2].choices[3]);
+  //TODO clear options for set question
 
 
-  
-
-  
+  // TODO loading in next answers
+  displayQuestion()
 }
 
 function displayMessage(responseMessage) {
@@ -200,3 +184,4 @@ function displayMessage(responseMessage) {
 
 startQuiz.addEventListener("click", startGame);
 viewScores.addEventListener("click", viewHighScore);
+
