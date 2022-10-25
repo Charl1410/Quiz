@@ -240,12 +240,13 @@ function getHighScores() {
   //display new score
   var score = JSON.parse(localStorage.getItem("score"));
   console.log(typeof score);
-  console.log(score);
+  console.log(score); 
 
   var sortedScores = score.sort((a, b) => b.score - a.score);
   console.log(sortedScores);
 
-  //TODO save top scores to local storage
+  //TODO save top 5 scores to local storage 
+  //this is partly working but just returning object object...s 
 
   sortedScores.splice(5);
   console.log("topScores: " + sortedScores);
@@ -257,7 +258,7 @@ function getHighScores() {
   console.log(JSON.parse(localStorage.getItem("score")));
 
 
-  //TODO use .map to create HTML element for each object
+  //TODO put the top 5 scores into the highscore section (.map?)
 
   var listItem = document.createElement("li");
   highScoreList.appendChild(listItem);
@@ -269,4 +270,3 @@ function getHighScores() {
 startQuiz.addEventListener("click", startGame);
 highScores.addEventListener("click", getHighScores);
 submit.addEventListener("click", saveScore);
-playAgain.addEventListener("click", startGame)
