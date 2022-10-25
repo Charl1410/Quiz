@@ -48,6 +48,8 @@ var viewScores = document.getElementById("viewScores");
 var submit = document.getElementById("submit");
 var welcome = document.getElementById("welcome");
 var initials = document.getElementById("initials");
+var finalScore = document.getElementById("finalScore")
+var playAgain = document.getElementById("playAgain")
 
 var timer = document.getElementById("timer");
 
@@ -68,6 +70,10 @@ function stopGame() {
   quiz.style.display = "none";
   welcome.style.display = "none";
   results.style.display = "";
+
+  finalScore.textContent = currentScore
+
+
 }
 
 function updateTimer() {
@@ -83,6 +89,7 @@ function startGame() {
   secondsLeft = 60;
   currentQuestionIndex = 0;
   score = 0;
+  
 
   //Start the timer countdown
   updateTimer();
@@ -198,21 +205,19 @@ function displayMessage(responseMessage) {
 }
 
 function saveScore() {
-
-  //get the name and save into a variable 
+  //get the name and save into a variable
   var initial = initials.value;
   console.log(initial);
   console.log(currentScore);
 
- // create an empty array for scores 
+  // create an empty array for scores
   var scores = [];
-  
-// retrieves the scores from local storage 
-  var existingScoresJson =localStorage.getItem("score") 
 
+  // retrieves the scores from local storage
+  var existingScoresJson = localStorage.getItem("score");
 
   if (existingScoresJson !== null) {
-    scores = JSON.parse(existingScoresJson)
+    scores = JSON.parse(existingScoresJson);
   }
 
   scores.push({
@@ -222,51 +227,41 @@ function saveScore() {
 
   var stringy = JSON.stringify(scores);
 
-  // save the JSON string of score to local storage under key score 
+  // save the JSON string of score to local storage under key score
   localStorage.setItem("score", stringy);
 
-  
   getHighScores();
 }
 
 function getHighScores() {
-  
   //clear ui
   highScoreList.innerHTML = "";
 
   //display new score
   var score = JSON.parse(localStorage.getItem("score"));
-  console.log(typeof score)
-  console.log(score)
-
+  console.log(typeof score);
+  console.log(score);
 
   var sortedScores = score.sort((a, b) => b.score - a.score);
-  console.log(sortedScores)
+  console.log(sortedScores);
 
-  
-  var listItem = document.createElement("li");
-  highScoreList.appendChild(listItem);
-  highScoreList.style.display = "";
+  //TODO save top scores to local storage
 
-  //listItem.textContent = sortedScores.splice(5);
-
-  //TODO save top scores to local storage 
-
-  //TODO rename function as gethighscores 
-
-  //TODO create a new function called dispaly high scores 
+  sortedScores.splice(5);
+  console.log("topScores: " + sortedScores);
+  var sortedScoresJSON = JSON.stringify("sortedScore", sortedScores);
+  console.log("JSON scores" + sortedScoresJSON);
 
   //TODO get fucntion to grab highscores from local storage
 
-  //TODO use .map to create HTML element for each object 
-
-  //TODO
-
-  var topScores = sortedScores.splice(5);
+  console.log(JSON.parse(localStorage.getItem("score")));
 
 
+  //TODO use .map to create HTML element for each object
 
-
+  var listItem = document.createElement("li");
+  highScoreList.appendChild(listItem);
+  highScoreList.style.display = "";
 
 
 }
@@ -274,3 +269,4 @@ function getHighScores() {
 startQuiz.addEventListener("click", startGame);
 highScores.addEventListener("click", getHighScores);
 submit.addEventListener("click", saveScore);
+playAgain.addEventListener("click", startGame)
