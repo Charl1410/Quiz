@@ -48,8 +48,8 @@ var viewScores = document.getElementById("viewScores");
 var submit = document.getElementById("submit");
 var welcome = document.getElementById("welcome");
 var initials = document.getElementById("initials");
-var finalScore = document.getElementById("finalScore")
-var playAgain = document.getElementById("playAgain")
+var finalScore = document.getElementById("finalScore");
+var playAgain = document.getElementById("playAgain");
 
 var timer = document.getElementById("timer");
 
@@ -71,9 +71,7 @@ function stopGame() {
   welcome.style.display = "none";
   results.style.display = "";
 
-  finalScore.textContent = currentScore
-
-
+  finalScore.textContent = currentScore;
 }
 
 function updateTimer() {
@@ -89,7 +87,6 @@ function startGame() {
   secondsLeft = 60;
   currentQuestionIndex = 0;
   score = 0;
-  
 
   //Start the timer countdown
   updateTimer();
@@ -225,10 +222,8 @@ function saveScore() {
     score: currentScore,
   });
 
-  var stringy = JSON.stringify(scores);
-
   // save the JSON string of score to local storage under key score
-  localStorage.setItem("score", stringy);
+  localStorage.setItem("score", JSON.stringify(scores));
 
   getHighScores();
 }
@@ -240,32 +235,32 @@ function getHighScores() {
   //display new score
   var score = JSON.parse(localStorage.getItem("score"));
   console.log(typeof score);
-  console.log(score); 
+  console.log(score);
 
   var sortedScores = score.sort((a, b) => b.score - a.score);
   console.log(sortedScores);
 
-  //TODO save top 5 scores to local storage 
-  //this is partly working but just returning object object...s 
-
+  // save top 5 scores to local storage
   sortedScores.splice(5);
-  console.log("topScores: " + sortedScores);
-  var sortedScoresJSON = JSON.stringify("sortedScore", sortedScores);
-  console.log("JSON scores" + sortedScoresJSON);
+  console.log("sortedScores " + sortedScores);
+  localStorage.setItem("topScores", JSON.stringify(sortedScores));
 
-  //TODO get fucntion to grab highscores from local storage
+  //TODO turn this into a separate function
+  //TODO when the highscores button is clicked call this function
+  //get fucntion to grab highscores from local storage
+  var topScores = JSON.parse(localStorage.getItem("topScores"));
+  console.log("top scores " + topScores);
 
-  console.log(JSON.parse(localStorage.getItem("score")));
-
-
-  //TODO put the top 5 scores into the highscore section (.map?)
-
-  var listItem = document.createElement("li");
-  highScoreList.appendChild(listItem);
-  highScoreList.style.display = "";
-
-
+  highScoreList.innerHTML = topScores
+    .map((score) => {
+      return `<span>${score.name} - ${score.score}</span>`;
+    }).join("");
+  
+  highScoreList.style.display = "block"
+  
 }
+
+//TODO 
 
 startQuiz.addEventListener("click", startGame);
 highScores.addEventListener("click", getHighScores);
