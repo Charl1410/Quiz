@@ -49,9 +49,10 @@ var submit = document.getElementById("submit");
 var welcome = document.getElementById("welcome");
 var initials = document.getElementById("initials");
 var finalScore = document.getElementById("finalScore");
-var playAgain = document.getElementById("playAgain");
+var playAgain = document.getElementById("play-again");
 
 var timer = document.getElementById("timer");
+
 
 //Setting variables to 0 for start
 var secondsLeft = 0;
@@ -107,7 +108,6 @@ function viewHighScore() {
   //hide uneccessary stuff
   welcome.style.display = "none";
   quiz.style.display = "none";
-  console.log("hiding quiz from view highscore");
 }
 
 //display question function
@@ -153,8 +153,6 @@ function handleAnswerClick(event) {
 
   var currentAnswer = currentQuestion.answer;
 
-  //console.log(correctAnswer);
-
   //compare  selectred response to correct answer
   if (currentAnswer === selectedAnswer) {
     // - dispaly "correct"
@@ -162,8 +160,6 @@ function handleAnswerClick(event) {
 
     //add point to score
     currentScore += 10;
-
-    console.log(currentScore);
 
     setTimeout(function () {
       message.textContent = " ";
@@ -204,9 +200,7 @@ function displayMessage(responseMessage) {
 function saveScore() {
   //get the name and save into a variable
   var initial = initials.value;
-  console.log(initial);
-  console.log(currentScore);
-
+  
   // create an empty array for scores
   var scores = [];
 
@@ -234,22 +228,23 @@ function getHighScores() {
 
   //display new score
   var score = JSON.parse(localStorage.getItem("score"));
-  console.log(typeof score);
-  console.log(score);
+ 
 
   var sortedScores = score.sort((a, b) => b.score - a.score);
-  console.log(sortedScores);
+
 
   // save top 5 scores to local storage
   sortedScores.splice(5);
-  console.log("sortedScores " + sortedScores);
   localStorage.setItem("topScores", JSON.stringify(sortedScores));
 
   //TODO turn this into a separate function
+
   //TODO when the highscores button is clicked call this function
   //get fucntion to grab highscores from local storage
+
+
   var topScores = JSON.parse(localStorage.getItem("topScores"));
-  console.log("top scores " + topScores);
+
 
   highScoreList.innerHTML = topScores
     .map((score) => {
@@ -260,8 +255,10 @@ function getHighScores() {
   
 }
 
-//TODO 
+
 
 startQuiz.addEventListener("click", startGame);
 highScores.addEventListener("click", getHighScores);
 submit.addEventListener("click", saveScore);
+playAgain.addEventListener("click", startGame)
+
