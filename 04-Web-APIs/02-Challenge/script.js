@@ -34,7 +34,8 @@ var questions = [
   },
 ];
 
-var highscores = document.getElementById("highscores");
+var highScores = document.getElementById("highScores");
+var highScoreList = document.getElementById("highScoreList");
 
 var startQuiz = document.getElementById("startQuiz");
 var currentScore = document.getElementById("currentScore");
@@ -46,6 +47,7 @@ var results = document.getElementById("results");
 var viewScores = document.getElementById("viewScores");
 var submit = document.getElementById("submit");
 var welcome = document.getElementById("welcome");
+var initials = document.getElementById("initials");
 
 var timer = document.getElementById("timer");
 
@@ -55,6 +57,7 @@ var currentScore = 0;
 var currentQuestionIndex = 0;
 var countDownTimer;
 results.style.display = "none";
+highScoreList.style.display = "none";
 
 //clear coundown timer to stop game
 function stopGame() {
@@ -194,6 +197,80 @@ function displayMessage(responseMessage) {
   message.textContent = responseMessage;
 }
 
+function saveScore() {
+
+  //get the name and save into a variable 
+  var initial = initials.value;
+  console.log(initial);
+  console.log(currentScore);
+
+ // create an empty array for scores 
+  var scores = [];
+  
+// retrieves the scores from local storage 
+  var existingScoresJson =localStorage.getItem("score") 
+
+
+  if (existingScoresJson !== null) {
+    scores = JSON.parse(existingScoresJson)
+  }
+
+  scores.push({
+    name: initial,
+    score: currentScore,
+  });
+
+  var stringy = JSON.stringify(scores);
+
+  // save the JSON string of score to local storage under key score 
+  localStorage.setItem("score", stringy);
+
+  
+  getHighScores();
+}
+
+function getHighScores() {
+  
+  //clear ui
+  highScoreList.innerHTML = "";
+
+  //display new score
+  var score = JSON.parse(localStorage.getItem("score"));
+  console.log(typeof score)
+  console.log(score)
+
+
+  var sortedScores = score.sort((a, b) => b.score - a.score);
+  console.log(sortedScores)
+
+  
+  var listItem = document.createElement("li");
+  highScoreList.appendChild(listItem);
+  highScoreList.style.display = "";
+
+  //listItem.textContent = sortedScores.splice(5);
+
+  //TODO save top scores to local storage 
+
+  //TODO rename function as gethighscores 
+
+  //TODO create a new function called dispaly high scores 
+
+  //TODO get fucntion to grab highscores from local storage
+
+  //TODO use .map to create HTML element for each object 
+
+  //TODO
+
+  var topScores = sortedScores.splice(5);
+
+
+
+
+
+
+}
+
 startQuiz.addEventListener("click", startGame);
-viewScores.addEventListener("click", viewHighScore);
-submit.addEventListener("click");
+highScores.addEventListener("click", getHighScores);
+submit.addEventListener("click", saveScore);

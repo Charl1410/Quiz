@@ -5,17 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" href = "style.css">
-    
     <title>JavaScript Quiz</title>
+
+
 </head>
 
 <body>
 
+<!--<div><img src = "Assets/quiz-background.jpeg" alt = "quizbackground"></div> -->
+
     <header>
-        <div id = highscores>
+        <div>
             <!--This is where we will store the highscores to the local store -->
-            <a href = ""> High scores</a>
+            <button id="highScores">High scores</button>
             <div id = "timer"> 0</div>
+
+            <ul id="highScoreList">
+
+
+            </ul>
+        
 
         </div>
 
@@ -29,7 +38,7 @@
         </div>
         <!---Section for the main part of the quiz
         think i have to hide this when the other sections are active -->
-        <div id = "quiz" class = "hidden">
+        <div id = "quiz">
 
         <div id = "currentScore">
 
@@ -57,12 +66,16 @@
     
     </div>
 
-    <div id = "results" class = "hidden">
+    <div id="results">
         <h2>End of game!</h2>
         <h3>your final score is: <span id = "finalScore"></span></h3>
         <div id = "summary"> </div>
         <input type="text" id="initials" placeholder="e.g. CG" />
         <button id="submit" type="submit">Submit</button>
+
+    </div>
+
+
 
     </div>
 
