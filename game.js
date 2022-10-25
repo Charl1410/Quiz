@@ -128,12 +128,12 @@ function displayQuestion() {
 
   option.innerHTML = "";
 
-  //adding the button to
+  //adding the button to HTML
   for (i = 0; i < question.choices.length; i++) {
     createButton(question.choices[i]);
   }
 }
-
+//function to create button and add event listener
 function createButton(text) {
   var button = document.createElement("button");
   button.textContent = text;
@@ -169,7 +169,6 @@ function handleAnswerClick(event) {
     displayMessage("Wrong :(");
 
     //- deduct 10s from timer
-    //TODO this isnt working
     secondsLeft -= 10;
 
     if (secondsLeft < 0) {
@@ -229,23 +228,21 @@ function getHighScores() {
   //display new score
   var score = JSON.parse(localStorage.getItem("score"));
  
-
+//sorts scores from highest to lowesst
   var sortedScores = score.sort((a, b) => b.score - a.score);
 
 
   // save top 5 scores to local storage
   sortedScores.splice(5);
+
+  //stores top 5 scores into local storage 
   localStorage.setItem("topScores", JSON.stringify(sortedScores));
 
-  //TODO turn this into a separate function
+  
+//retrieve from local storage
+var topScores = JSON.parse(localStorage.getItem("topScores"));
 
-  //TODO when the highscores button is clicked call this function
-  //get fucntion to grab highscores from local storage
-
-
-  var topScores = JSON.parse(localStorage.getItem("topScores"));
-
-
+//mapping top scores into HTML
   highScoreList.innerHTML = topScores
     .map((score) => {
       return `<span>${score.name} - ${score.score}</span>`;
