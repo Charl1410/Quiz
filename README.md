@@ -24,6 +24,8 @@ WHEN the game is over
 THEN I can save my initials and my score
 ```
 # Preview 
+![](https://github.com/Charl1410/week-3-passwordGenerator/blob/master/Develop/Screenshots/Screenshot%201.png)
+
 
 
 # links
