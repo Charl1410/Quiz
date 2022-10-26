@@ -88,7 +88,7 @@ function updateTimer() {
 function startGame() {
   secondsLeft = 60;
   currentQuestionIndex = 0;
-  score = 0;
+  currentScore = 0;
 
   //Start the timer countdown
   updateTimer();
