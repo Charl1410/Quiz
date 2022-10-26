@@ -61,6 +61,7 @@ var currentQuestionIndex = 0;
 var countDownTimer;
 results.style.display = "none";
 highScoreList.style.display = "none";
+timer.textContent = ""
 
 //clear coundown timer to stop game
 function stopGame() {

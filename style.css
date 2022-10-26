@@ -25,3 +25,7 @@ button {
 button:hover {
     cursor: grab;
 }
+
+p {
+    text-align: center;
+}
