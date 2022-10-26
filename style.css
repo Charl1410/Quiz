@@ -20,10 +20,14 @@ body {
 button {
     background-color: lightpink;
     border-radius: 5%;
+    border: dashed 1px black;
+    box-shadow: 2px 5px #e4d3d3;
+
+
 }
 
 button:hover {
-    cursor: grab;
+    cursor: pointer;
 }
 
 p {
